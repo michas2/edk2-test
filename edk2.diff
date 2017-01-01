@@ -1,0 +1,25 @@
+diff --git a/MdeModulePkg/Universal/Network/UefiPxeBcDxe/PxeBcDhcp.c b/MdeModulePkg/Universal/Network/UefiPxeBcDxe/PxeBcDhcp.c
+index f0720e5..520ce20 100644
+--- a/MdeModulePkg/Universal/Network/UefiPxeBcDxe/PxeBcDhcp.c
++++ b/MdeModulePkg/Universal/Network/UefiPxeBcDxe/PxeBcDhcp.c
+@@ -1914,7 +1914,7 @@ PxeBcSelectBootMenu (
+       gBS->Stall (10 * TICKS_PER_MS);
+     }
+ 
+-    if (InputKey.ScanCode != 0) {
++    if (InputKey.ScanCode == 0) {
+       switch (InputKey.UnicodeChar) {
+       case CTRL ('c'):
+         InputKey.ScanCode = SCAN_ESC;
+diff --git a/MdeModulePkg/Universal/Network/UefiPxeBcDxe/PxeBcImpl.c b/MdeModulePkg/Universal/Network/UefiPxeBcDxe/PxeBcImpl.c
+index 639da48..c29189a 100644
+--- a/MdeModulePkg/Universal/Network/UefiPxeBcDxe/PxeBcImpl.c
++++ b/MdeModulePkg/Universal/Network/UefiPxeBcDxe/PxeBcImpl.c
+@@ -2656,6 +2656,7 @@ DiscoverBootFile (
+ 
+   if (!EFI_ERROR (Status)) {
+ 
++    AsciiPrint ("-->aborting\n"); gBS->Stall (100 * TICKS_PER_MS);
+     if (Type == EFI_PXE_BASE_CODE_BOOT_TYPE_BOOTSTRAP) {
+       //
+       // Local boot(PXE bootstrap server) need abort
